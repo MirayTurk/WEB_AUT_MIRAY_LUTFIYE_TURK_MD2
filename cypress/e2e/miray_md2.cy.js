@@ -1,48 +1,45 @@
 import { LoginPage } from "../PageObjects/loginPage";
 import { AppointmentPage } from "../PageObjects/appointmentPage";
 
-describe('CURA Healthcare Service Scenarios', () => {
+describe('CURA Healthcare Service - Booking and History Tests', () => {
   beforeEach(() => {
     LoginPage.visit();
   });
   
-  it("Make an Appointment", () => {
+  it("Should successfully book a new medical appointment", () => {
     // Click - Make Appointment
     // Set username and password fields with the demo account credentials
     // Click - Login
-    LoginPage.login("John Doe", "ThisIsNotAPassword");
-    
+    LoginPage.performLogin("John Doe", "ThisIsNotAPassword");
     // Setting the values
-    AppointmentPage.fillAppointment(
+    AppointmentPage.submitAppointmentDetails(
       "Seoul CURA Healthcare Center",
       true,
       "30",
       "CURA Healthcare Service"
     );
-
     // Validate that previously set values are correct
-    AppointmentPage.confirmationText.should("have.text", "Appointment Confirmation");
+    AppointmentPage.validationHeader.should("have.text", "Appointment Confirmation");
     // Facility - Seoul CURA Healthcare Center
-    AppointmentPage.facilityValue.should("have.text", "Seoul CURA Healthcare Center");
+    AppointmentPage.verifyFacility.should("have.text", "Seoul CURA Healthcare Center");
     // Check - Apply for hospital readmission
-    AppointmentPage.readmissionValue.should("have.text", "Yes");
-    AppointmentPage.programValue.should("have.text", "Medicaid");
+    AppointmentPage.verifyReadmission.should("have.text", "Yes");
+    AppointmentPage.verifyProgram.should("have.text", "Medicaid");
     // Set Date value by using the widget - 30
-    AppointmentPage.dateValue.should("have.text", "30/04/2026");
+    AppointmentPage.verifyDate.should("have.text", "30/04/2026");
     // Set comment - CURA Healthcare Service
-    AppointmentPage.commentValue.should("have.text", "CURA Healthcare Service");
+    AppointmentPage.verifyComment.should("have.text", "CURA Healthcare Service");
   });
-  
-  it.only("Appointment history empty", () => {
-    LoginPage.login("John Doe", "ThisIsNotAPassword");
+  it("Should display empty appointment history for new logins", () => {
+    LoginPage.performLogin("John Doe", "ThisIsNotAPassword");
     
     // Click - Menu/Stack/Burger icon
-    AppointmentPage.menuBtn.click();
+    AppointmentPage.navigationMenu.click();
     // Validate that the sidebar is active
-    AppointmentPage.sidebar.should("have.class", "active");
+    AppointmentPage.sideWrapper.should("have.class", "active");
     // Click - History
-    AppointmentPage.historyLink.click();
+    AppointmentPage.historyTab.click();
     // Validate that - No appointment - is visible
-    AppointmentPage.noAppointmentMsg.should("be.visible");
+    AppointmentPage.emptyHistoryAlert.should("be.visible");
   });
 });
