@@ -30,47 +30,47 @@ export class AppointmentPage extends BasePage {
       return cy.get("#btn-book-appointment");
     }
     
-    static get menuBtn() {
+    static get navigationMenu() {
       return cy.get("#menu-toggle");
     }
 
-    static get sidebar() {
+    static get sideWrapper() {
       return cy.get("#sidebar-wrapper"); 
     }
 
-    static get historyLink() {
+    static get historyTab() {
       return cy.contains("History");
     }
 
-    static get confirmationText() {
+    static get validationHeader() {
       return cy.get("h2");
     }
 
-    static get facilityValue() {
+    static get verifyFacility() {
       return cy.get("#facility");
     }
 
-    static get readmissionValue() {
+    static get verifyReadmission() {
       return cy.get("#hospital_readmission");
     }
 
-    static get programValue() {
+    static get verifyProgram() {
       return cy.get("#program");
     }
 
-    static get dateValue() {
+    static get verifyDate() {
       return cy.get("#visit_date");
     }
 
-    static get commentValue() {
+    static get verifyComment() {
       return cy.get("#comment");
     }
 
-    static get noAppointmentMsg() {
+    static get emptyHistoryAlert() {
       return cy.contains("No appointment");
     }
 
-    static fillAppointment(facility, readmission, dateDay, comment) {
+    static submitAppointmentDetails(facility, readmission, dateDay, comment) {
       this.facilitySelect.select(facility);
       if (readmission) this.readmissionCheck.check();
       this.medicaidRadio.click();
