@@ -21,7 +21,7 @@ export class LoginPage extends BasePage {
         return cy.get("#btn-login");
     }
     
-    static login(user, pass) {
+    static performLogin(user, pass) {
         this.makeAppointmentBtn.click();
         this.usernameField.type(user);
         this.passwordField.type(pass);
